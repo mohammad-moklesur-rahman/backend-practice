@@ -1,0 +1,29 @@
+import admin from "firebase-admin";
+import serviceAccount from "../../client-site-firebase-adminsdk.json" with { type: "json" };
+
+// ✅ Initialize Firebase Admin SDK once
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
+
+export const protect = async (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(401).send({ message: "Unauthorize acces" });
+  }
+  const firebaseToken = req.headers.authorization.split(" ")[1];
+  if (!firebaseToken) {
+    return res.status(401).send({ message: "Unauthorize acces" });
+  }
+
+  // * Verify firebase token
+  try {
+    await admin.auth().verifyIdToken(firebaseToken);
+    next();
+  } catch {
+    return res.status(403).json({ message: "Forbidden acces" });
+  }
+
+  
+};
