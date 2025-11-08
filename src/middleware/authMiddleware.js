@@ -1,5 +1,9 @@
 import admin from "firebase-admin";
-import serviceAccount from "../../client-site-firebase-adminsdk.json" with { type: "json" };
+// import serviceAccount from "../../client-site-firebase-adminsdk.json" with { type: "json" };
+
+// decoded
+const decoded = Buffer.from(process.env.FIREBASE_SERVICE_KEY, "base64").toString("utf8");
+const serviceAccount = JSON.parse(decoded);
 
 // ✅ Initialize Firebase Admin SDK once
 if (!admin.apps.length) {

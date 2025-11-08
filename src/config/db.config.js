@@ -19,7 +19,7 @@ export const connectDB = async () => {
     await client.connect();
     // Send a ping to confirm a successful connection
     db = client.db("productsDB");
-    await db.command({ ping: 1 });
+    // await db.command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
