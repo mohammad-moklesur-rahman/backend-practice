@@ -1,4 +1,6 @@
 import admin from "firebase-admin";
+import dotenv from "dotenv";
+dotenv.config();
 // import serviceAccount from "../../client-site-firebase-adminsdk.json" with { type: "json" };
 
 // decoded
